@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Distribuição de Delineadores</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://unpkg.com/file-saver/dist/FileSaver.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Distribuição de Delineadores</h1>
+        <p class="description">Calcule a distribuição de delineadores com espaçamentos de 15m e limites de 14-16m nas extremidades</p>
+        
+        <div class="tabs">
+            <button id="tabEstacas" class="tab active">Modo Estacas</button>
+            <button id="tabComprimento" class="tab">Modo Comprimento</button>
+        </div>
+
+        <div class="form-section">
+            <div id="estacasMode" class="input-mode">
+                <h2>Entradas</h2>
+                
+                <div class="form-group">
+                    <label>Estaca Inicial:</label>
+                    <div class="estaca-input">
+                        <input type="number" id="estacaInicialNumero" min="0" placeholder="Número" value="186">
+                        <span>+</span>
+                        <input type="number" id="estacaInicialMetros" min="0" max="19.99" step="0.01" placeholder="Metros" value="9.00">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Estaca Final:</label>
+                    <div class="estaca-input">
+                        <input type="number" id="estacaFinalNumero" min="0" placeholder="Número" value="200">
+                        <span>+</span>
+                        <input type="number" id="estacaFinalMetros" min="0" max="19.99" step="0.01" placeholder="Metros" value="17.00">
+                    </div>
+                </div>
+            </div>
+            
+            <div id="comprimentoMode" class="input-mode hidden">
+                <h2>Entradas</h2>
+                
+                <div class="form-group">
+                    <label>Comprimento Total do Trecho (metros):</label>
+                    <input type="number" id="comprimentoTotal" min="1" value="288">
+                </div>
+                
+                <div class="form-group">
+                    <label>Estaca Inicial (opcional):</label>
+                    <div class="estaca-input">
+                        <input type="number" id="estacaInicialNumeroOpt" min="0" placeholder="Número" value="0">
+                        <span>+</span>
+                        <input type="number" id="estacaInicialMetrosOpt" min="0" max="19.99" step="0.01" placeholder="Metros" value="0.00">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="common-inputs">
+                <div class="form-group">
+                    <label>Espaçamento Central (metros):</label>
+                    <input type="number" id="espacamentoCentral" value="15" readonly>
+                    <small>Os espaçamentos centrais são fixados em 15 metros.</small>
+                </div>
+                
+                <div class="form-group">
+                    <label>Opção de Distribuição:</label>
+                    <select id="opcaoDistribuicao">
+                        <option value="1">Opção 1: Concentrar no Início</option>
+                        <option value="2">Opção 2: Concentrar no Final</option>
+                        <option value="3" selected>Opção 3: Distribuir no Início e Final</option>
+                    </select>
+                </div>
+                
+                <button id="calcularBtn" class="button primary">Calcular Distribuição</button>
+            </div>
+        </div>
+        
+        <div class="results hidden" id="resultsSection">
+            <h2>Resultados</h2>
+            
+            <div class="results-summary">
+                <div class="result-item">
+                    <span>Número de delineadores:</span>
+                    <strong id="numDelineadores">20</strong>
+                </div>
+                <div class="result-item">
+                    <span>Número de espaçamentos:</span>
+                    <strong id="numEspacamentos">19</strong>
+                </div>
+                <div class="result-item">
+                    <span>Sobra total (metros):</span>
+                    <strong id="sobraTotal">3.00 m</strong>
+                </div>
+                <div class="result-item">
+                    <span>Distribuição da sobra:</span>
+                    <strong id="distribuicaoSobra">3 espaçamentos de 16m</strong>
+                </div>
+            </div>
+            
+            <button id="exportExcelBtn" class="button secondary">Exportar para Excel</button>
+            
+            <div class="table-container">
+                <table id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th>Nº</th>
+                            <th>Posição (m)</th>
+                            <th>Estaca</th>
+                            <th>Espaçamento</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsTableBody">
+                        <!-- Os resultados serão inseridos aqui dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Calculadora de Distribuição de Delineadores v1.0</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
